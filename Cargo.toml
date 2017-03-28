@@ -1,0 +1,12 @@
+[package]
+authors = ["Justin Charette <charetjc@gmail.com>"]
+name = "neovim-scorched-earth"
+version = "0.1.0"
+
+[dependencies]
+log = "0.3.7"
+simplelog = "0.4.2"
+
+[dependencies.neovim-lib]
+git = "https://github.com/boxofrox/neovim-lib.git"
+rev = "feature/session-from-neovim-parent-process"
