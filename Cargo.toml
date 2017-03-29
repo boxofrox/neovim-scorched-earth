@@ -8,5 +8,5 @@ log = "0.3.7"
 simplelog = "0.4.2"
 
 [dependencies.neovim-lib]
-git = "https://github.com/boxofrox/neovim-lib.git"
-rev = "feature/session-from-neovim-parent-process"
+git = "https://github.com/daa84/neovim-lib.git"
+rev = "e3e7e2a5dc44acf56d199ee70581978f00266022"

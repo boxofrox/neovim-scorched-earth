@@ -1,7 +1,7 @@
 # neovim-scorched-earth
 
-A stupid proof-of-concept for a Neovim plugin written in Rust using a modified
-version of [daa84/neovim-lib](https://github.com/daa84/neovim-lib).
+A stupid proof-of-concept for a Neovim plugin written in Rust using
+[daa84/neovim-lib](https://github.com/daa84/neovim-lib).
 
 ## What does it do?
 
