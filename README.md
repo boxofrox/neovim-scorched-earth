@@ -55,7 +55,7 @@ $ cargo build --release
     changes, open an issue!)*
 
 ```sh
-nvim -u ./init.vim --noplugin -c ":ScorchedEarth"
+nvim -u ./init.vim --noplugin -c ":ScorchedEarthConnect"
 ```
 
 The `ScorchedEarth` command spawns the Rust plugin in a separate process and
