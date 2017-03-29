@@ -48,7 +48,6 @@ fn init_logging() -> Result<(), Box<Error>> {
     use std::env;
     use std::env::VarError;
     use std::fs::File;
-    use chrono::prelude::*;
 
     let log_level_filter =
         match env::var("LOG_LEVEL").unwrap_or(String::from("trace")).to_lowercase().as_ref() {
