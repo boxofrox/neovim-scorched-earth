@@ -3,7 +3,7 @@ name = "neovim-scorched-earth"
 version = "0.1.0"
 dependencies = [
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "neovim-lib 0.2.1 (git+https://github.com/daa84/neovim-lib.git?rev=e3e7e2a5dc44acf56d199ee70581978f00266022)",
+ "neovim-lib 0.2.1 (git+https://github.com/boxofrox/neovim-lib.git?rev=rmpv)",
  "simplelog 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -39,10 +39,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "neovim-lib"
 version = "0.2.1"
-source = "git+https://github.com/daa84/neovim-lib.git?rev=e3e7e2a5dc44acf56d199ee70581978f00266022#e3e7e2a5dc44acf56d199ee70581978f00266022"
+source = "git+https://github.com/boxofrox/neovim-lib.git?rev=rmpv#71552e5d03af557b0ef5ddcbeb43834c23513249"
 dependencies = [
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "rmp 0.8.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rmpv 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "unix_socket 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -63,6 +64,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "byteorder 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "num-traits 0.1.37 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "rmpv"
+version = "0.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "num-traits 0.1.37 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rmp 0.8.5 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -120,10 +130,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum kernel32-sys 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "7507624b29483431c0ba2d82aece8ca6cdba9382bff4ddd0f7490560c056098d"
 "checksum libc 0.2.21 (registry+https://github.com/rust-lang/crates.io-index)" = "88ee81885f9f04bff991e306fea7c1c60a5f0f9e409e99f6b40e3311a3363135"
 "checksum log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)" = "5141eca02775a762cc6cd564d8d2c50f67c0ea3a372cbf1c51592b3e029e10ad"
-"checksum neovim-lib 0.2.1 (git+https://github.com/daa84/neovim-lib.git?rev=e3e7e2a5dc44acf56d199ee70581978f00266022)" = "<none>"
+"checksum neovim-lib 0.2.1 (git+https://github.com/boxofrox/neovim-lib.git?rev=rmpv)" = "<none>"
 "checksum num-traits 0.1.37 (registry+https://github.com/rust-lang/crates.io-index)" = "e1cbfa3781f3fe73dc05321bed52a06d2d491eaa764c52335cf4399f046ece99"
 "checksum redox_syscall 0.1.17 (registry+https://github.com/rust-lang/crates.io-index)" = "29dbdfd4b9df8ab31dec47c6087b7b13cbf4a776f335e4de8efba8288dda075b"
 "checksum rmp 0.8.5 (registry+https://github.com/rust-lang/crates.io-index)" = "333f01365885cb192edaa22acb06d7e2f196bfd19d6969419e8b61307e0710ea"
+"checksum rmpv 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)" = "45368daa6c60116376d8813ec6a2556df640229709becb8f80df1651f882e7af"
 "checksum simplelog 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)" = "2c3a63f2b74bc3359ed6050da62e32cc0e10a162c4f62a0c1d80cd89d432234b"
 "checksum term 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)" = "d168af3930b369cfe245132550579d47dfd873d69470755a19c2c6568dbbd989"
 "checksum time 0.1.36 (registry+https://github.com/rust-lang/crates.io-index)" = "211b63c112206356ef1ff9b19355f43740fc3f85960c598a93d3a3d3ba7beade"
