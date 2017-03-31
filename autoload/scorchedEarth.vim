@@ -11,7 +11,10 @@ if ! exists('s:jobid')
 endif
 
 let s:scriptdir = resolve(expand('<sfile>:p:h') . '/..')
-let s:bin = s:scriptdir . '/target/release/neovim-scorched-earth'
+
+if ! exists('g:scorched_earth_program')
+  let g:scorched_earth_program = s:scriptdir . '/target/release/neovim-scorched-earth'
+endif
 
 function! scorchedEarth#init()
   call scorchedEarth#connect()
@@ -74,7 +77,7 @@ endfunction
 
 function! s:StartJob()
   if 0 == s:jobid
-    let id = jobstart([s:bin], { 'rpc': v:true, 'on_stderr': function('s:OnStderr') })
+    let id = jobstart([g:scorched_earth_program], { 'rpc': v:true, 'on_stderr': function('s:OnStderr') })
     return id
   else
     return 0

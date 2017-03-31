@@ -66,5 +66,5 @@ establishes a channel.
 - [ ] Add vimscript variable `g:scorched_earth_syntax_group` to select
       highlight color using existing syntax groups.
 
-- [ ] Add vimscript variable `g:scorched_earth_exe` to specify location of Rust
+- [x] Add vimscript variable `g:scorched_earth_program` to specify location of Rust
       plugin binary.  Will facilitate testing development binaries.
