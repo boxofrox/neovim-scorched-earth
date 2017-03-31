@@ -6,29 +6,12 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use neovim_lib::{Integer, Value};
+use neovim_lib::Value;
 
 pub fn parse_string(value: &Value) -> Result<String, String> {
-    if let &Value::String(ref s) = value {
-        Ok(s.to_owned())
-    } else {
-        Err("cannot parse string".to_owned())
-    }
+    value.as_str().ok_or("cannot parse error".to_owned()).map(|s| String::from(s))
 }
 
 pub fn parse_usize(value: &Value) -> Result<usize, String> {
-    if let &Value::Integer(ref x) = value {
-        match x {
-            &Integer::U64(x) => Ok(x as usize),
-            &Integer::I64(x) => {
-                if x >= 0 {
-                    Ok(x as usize)
-                } else {
-                    Err("cannot parse usize".to_owned())
-                }
-            }
-        }
-    } else {
-        Err("cannot parse usize".to_owned())
-    }
+    value.as_u64().ok_or("cannot parse usize".to_owned()).map(|n| n as usize)
 }

@@ -85,6 +85,6 @@ impl Handler for NeovimHandler {
     }
 
     fn handle_request(&mut self, _name: &str, _args: &Vec<Value>) -> Result<Value, Value> {
-        Err(Value::String("not implemented".to_owned()))
+        Err(Value::from("not implemented"))
     }
 }
