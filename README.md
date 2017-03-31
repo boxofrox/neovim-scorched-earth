@@ -58,7 +58,7 @@ $ cargo build --release
 nvim -u ./init.vim --noplugin -c ":ScorchedEarthConnect"
 ```
 
-The `ScorchedEarth` command spawns the Rust plugin in a separate process and
+The `ScorchedEarthConnect` command spawns the Rust plugin in a separate process and
 establishes a channel.
 
 ## Todo
