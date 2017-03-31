@@ -50,12 +50,12 @@ impl NeovimHandler {
 }
 
 impl Handler for NeovimHandler {
-    fn handle_notify(&mut self, name: &str, args: Vec<Value>) {
+    fn handle_notify(&mut self, name: &str, args: &Vec<Value>) {
         info!("event: {}", name);
         //print_args(&args);
         match name {
             "cursor-moved-i" => {
-                if let Ok(event) = self.parse_cursor_moved_i(&args) {
+                if let Ok(event) = self.parse_cursor_moved_i(args) {
                     info!("cursor moved i: {:?}", event);
                     if let Err(reason) = self.0.send(event) {
                         error!("{}", reason);
@@ -63,7 +63,7 @@ impl Handler for NeovimHandler {
                 }
             }
             "insert-enter" => {
-                if let Ok(event) = self.parse_insert_enter(&args) {
+                if let Ok(event) = self.parse_insert_enter(args) {
                     info!("insert enter: {:?}", event);
                     if let Err(reason) = self.0.send(event) {
                         error!("{}", reason);
@@ -84,7 +84,7 @@ impl Handler for NeovimHandler {
         }
     }
 
-    fn handle_request(&mut self, _name: &str, _args: Vec<Value>) -> Result<Value, Value> {
+    fn handle_request(&mut self, _name: &str, _args: &Vec<Value>) -> Result<Value, Value> {
         Err(Value::String("not implemented".to_owned()))
     }
 }
