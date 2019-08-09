@@ -6,8 +6,10 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use args;
-use event::Event;
+use crate::args;
+use crate::event::Event;
+
+use log::{error, info, log};
 
 use neovim_lib::{Handler, Value};
 

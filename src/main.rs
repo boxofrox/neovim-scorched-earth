@@ -6,19 +6,16 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#[macro_use]
-extern crate log;
-extern crate neovim_lib;
-extern crate simplelog;
-
 mod args;
 mod event;
 mod handler;
 mod position;
 
-use handler::NeovimHandler;
-use event::Event;
-use position::Position;
+use crate::event::Event;
+use crate::handler::NeovimHandler;
+use crate::position::Position;
+
+use log::{error, info, log};
 
 use neovim_lib::neovim::Neovim;
 use neovim_lib::neovim_api::NeovimApi;
@@ -91,7 +88,7 @@ fn start_program() -> Result<(), Box<Error>> {
     info!("connecting to neovim via stdin/stdout");
 
     let (sender, receiver) = mpsc::channel();
-    let mut session = try!(Session::new_parent());
+    let mut session = Session::new_parent()?;
     session.start_event_loop_handler(NeovimHandler(sender));
 
     let mut nvim = Neovim::new(session);
