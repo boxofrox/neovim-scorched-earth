@@ -9,3 +9,5 @@
 set rtp+=$PWD
 
 source $PWD/plugin/scorchedEarth.vim
+
+" Usage: nvim -u init.vim --noplugin
