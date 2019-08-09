@@ -23,7 +23,9 @@ use neovim_lib::session::Session;
 
 use simplelog::{Config, LogLevel, LogLevelFilter, WriteLogger};
 
+use std::collections::HashSet;
 use std::error::Error;
+use std::fmt;
 use std::sync::mpsc;
 
 fn main() {
@@ -131,6 +133,8 @@ fn start_event_loop(receiver: mpsc::Receiver<Event>, mut nvim: Neovim) {
     let mut cursor_end: Option<Position> = None;
     let mut mode = Mode::Other;
 
+    let highlight_groups = HighlightGroup::load(&mut nvim);
+
     loop {
         match receiver.recv() {
             Ok(Event::CursorMovedI { line, column }) => {
@@ -166,7 +170,12 @@ fn start_event_loop(receiver: mpsc::Receiver<Event>, mut nvim: Neovim) {
 
                 cursor_start = Some(Position::new(line, column));
                 cursor_end = Some(Position::new(line, column));
-                define_highlight_group(&mut nvim);
+
+                if let Some(parent_group) =
+                    get_valid_parent_highlight_group(&mut nvim, &highlight_groups)
+                {
+                    link_highlight_group(&mut nvim, &parent_group);
+                }
             }
             Ok(Event::InsertLeave) => {
                 mode = Mode::Other;
@@ -209,9 +218,12 @@ fn keep_max_position(target: &Option<Position>, pos: &Position) -> Option<Positi
     }
 }
 
-fn define_highlight_group(nvim: &mut Neovim) {
-    nvim.command("highlight link ScorchedEarth Constant")
-        .unwrap();
+fn link_highlight_group(nvim: &mut Neovim, parent_highlight_group: &HighlightGroup) {
+    nvim.command(&format!(
+        "highlight link ScorchedEarth {}",
+        parent_highlight_group
+    ))
+    .unwrap()
 }
 
 fn define_syntax_region(nvim: &mut Neovim, cursor_start: &Position, cursor_end: &Position) {
@@ -224,4 +236,72 @@ fn define_syntax_region(nvim: &mut Neovim, cursor_start: &Position, cursor_end: 
 
 fn remove_syntax_group(nvim: &mut Neovim) {
     nvim.command("syntax clear ScorchedEarth").unwrap();
+}
+
+fn get_valid_parent_highlight_group(
+    nvim: &mut Neovim,
+    group_set: &HashSet<HighlightGroup>,
+) -> Option<HighlightGroup> {
+    match get_parent_highlight_group(nvim) {
+        None => None,
+        Some(group) => {
+            if group_set.contains(&group) {
+                Some(group)
+            } else {
+                None
+            }
+        }
+    }
+}
+
+fn get_parent_highlight_group(nvim: &mut Neovim) -> Option<HighlightGroup> {
+    match nvim.get_var("scorched_earth_parent_highlight_group") {
+        Err(_) => None,
+        Ok(ref v) => v.as_str().map(HighlightGroup::from),
+    }
+}
+
+#[derive(Debug, Eq, Hash, PartialEq)]
+struct HighlightGroup(String);
+
+impl HighlightGroup {
+    pub fn new(name: String) -> HighlightGroup {
+        HighlightGroup(name)
+    }
+
+    pub fn load(nvim: &mut Neovim) -> HashSet<HighlightGroup> {
+        let highlight = nvim
+            .command_output("silent highlight")
+            .expect("unable to list highlights");
+
+        let highlight = highlight
+            .lines()
+            .filter(|line| line.starts_with(char::is_alphabetic))
+            .flat_map(|line| line.split_whitespace().take(1))
+            .map(str::to_owned)
+            .map(HighlightGroup::new)
+            .collect::<HashSet<HighlightGroup>>();
+
+        info!("highlight groups:\n{:?}", highlight);
+
+        highlight
+    }
+}
+
+impl fmt::Display for HighlightGroup {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        writeln!(f, "{}", self.0)
+    }
+}
+
+impl From<String> for HighlightGroup {
+    fn from(name: String) -> HighlightGroup {
+        HighlightGroup(name)
+    }
+}
+
+impl<'a> From<&'a str> for HighlightGroup {
+    fn from(name: &'a str) -> HighlightGroup {
+        HighlightGroup(name.to_owned())
+    }
 }

@@ -102,3 +102,5 @@ function! s:StopJob()
     let s:jobid = 0
   endif
 endfunction
+
+call color#highlight('default ScorchedEarth', 'dddddd', '550000', 'bold', '', '')
