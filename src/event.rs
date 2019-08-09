@@ -9,7 +9,10 @@
 use std::fmt;
 
 pub enum Event {
-    CursorMovedI { line: usize, column: usize },
+    CursorMovedI {
+        line: usize,
+        column: usize,
+    },
     InsertEnter {
         mode: String,
         line: usize,
@@ -24,19 +27,23 @@ impl fmt::Debug for Event {
         use Event::*;
 
         match self {
-            &CursorMovedI { ref line, ref column } => {
-                write!(f,
-                       "Event::CursorMovedI{{ line: {}, column: {} }}",
-                       line,
-                       column)
-            }
-            &InsertEnter { ref mode, ref line, ref column } => {
-                write!(f,
-                       "Event::InsertEnter{{ mode: {}, line: {}, column: {}}}",
-                       mode,
-                       line,
-                       column)
-            }
+            &CursorMovedI {
+                ref line,
+                ref column,
+            } => write!(
+                f,
+                "Event::CursorMovedI{{ line: {}, column: {} }}",
+                line, column
+            ),
+            &InsertEnter {
+                ref mode,
+                ref line,
+                ref column,
+            } => write!(
+                f,
+                "Event::InsertEnter{{ mode: {}, line: {}, column: {}}}",
+                mode, line, column
+            ),
             &InsertLeave => write!(f, "Event::InsertLeave"),
             &Quit => write!(f, "Event::Quit"),
         }

@@ -41,10 +41,10 @@ impl Ord for Position {
 
 impl fmt::Debug for Position {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f,
-               "Position{{ line: {}, column: {} }}",
-               self.line,
-               self.column)
+        write!(
+            f,
+            "Position{{ line: {}, column: {} }}",
+            self.line, self.column
+        )
     }
 }
-

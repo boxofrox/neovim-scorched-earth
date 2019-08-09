@@ -8,7 +8,9 @@
 
 use args;
 use event::Event;
+
 use neovim_lib::{Handler, Value};
+
 use std::sync::mpsc;
 
 pub struct NeovimHandler(pub mpsc::Sender<Event>);
@@ -16,9 +18,11 @@ pub struct NeovimHandler(pub mpsc::Sender<Event>);
 impl NeovimHandler {
     pub fn parse_cursor_moved_i(&mut self, args: &Vec<Value>) -> Result<Event, String> {
         if 2 != args.len() {
-            return Err(format!("Wrong number of arguments for 'CursorMoveI'.  Expected 2, found \
-                                {}",
-                               args.len()));
+            return Err(format!(
+                "Wrong number of arguments for 'CursorMoveI'.  Expected 2, found \
+                 {}",
+                args.len()
+            ));
         }
 
         let line = args::parse_usize(&args[0])?;
@@ -32,9 +36,11 @@ impl NeovimHandler {
 
     pub fn parse_insert_enter(&mut self, args: &Vec<Value>) -> Result<Event, String> {
         if 3 != args.len() {
-            return Err(format!("Wrong number of arguments for 'InsertEnter'.  Expected 3, found \
-                                {}",
-                               args.len()));
+            return Err(format!(
+                "Wrong number of arguments for 'InsertEnter'.  Expected 3, found \
+                 {}",
+                args.len()
+            ));
         }
 
         let mode = args::parse_string(&args[0])?;
