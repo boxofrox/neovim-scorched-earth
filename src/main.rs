@@ -15,7 +15,7 @@ use crate::event::Event;
 use crate::handler::NeovimHandler;
 use crate::position::Position;
 
-use log::{error, info, log};
+use log::*;
 
 use neovim_lib::neovim::Neovim;
 use neovim_lib::neovim_api::NeovimApi;

@@ -7,7 +7,4 @@ edition = "2018"
 [dependencies]
 log = "0.3.7"
 simplelog = "0.4.2"
-
-[dependencies.neovim-lib]
-git = "https://github.com/daa84/neovim-lib.git"
-rev = "77bb54c8a07d10a389947e50127d0376ebfad5fa"
+neovim-lib = "0.6.1"
